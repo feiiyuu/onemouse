@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { ClientVideoConnect } from '../mainprocess/connection/connect'
-import { ActionType, ActionKey, KeyBoardEventType, EventType } from '../components/controller/type'
+import { ActionType, ActionKey, KeyBoardEventType, EventType } from '../types/conn'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const video = ref<HTMLVideoElement>(undefined)

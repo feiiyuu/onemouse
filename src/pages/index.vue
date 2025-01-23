@@ -26,7 +26,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { EventType, ActionType, ActionKey } from '../components/controller/type'
+import { EventType, ActionType, ActionKey } from '../types/conn'
 import Controller from '../components/controller/index.vue'
 import { taskManger } from '../utils/task'
 import { useSettingStore } from '../store/setting'
@@ -40,7 +40,7 @@ import TabPanel from 'primevue/tabpanel';
 import { useToast } from "primevue/usetoast";
 import Toast from 'primevue/toast';
 import useStarter from '../components/starter/useStarter'
-import { StartStatus } from '../components/starter/types'
+import { StartStatus } from '../types/conn'
 const { status, SetStatus } = useStarter()
 const settingStore = useSettingStore()
 import { ref, watch, onMounted } from 'vue'

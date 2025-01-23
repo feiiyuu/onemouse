@@ -14,7 +14,7 @@
 import CheckItem from './item.vue'
 const props = defineProps(['collectEvent'])
 import useValue from './useChecked'
-import { EventType } from './type'
+import { EventType } from '../../types/conn'
 import { onMounted, watch, } from 'vue'
 import { e } from '../../utils/event'
 import Panel from 'primevue/panel';

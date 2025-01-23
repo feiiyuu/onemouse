@@ -25,8 +25,8 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import { EventType } from '../controller/type'
-import { StartStatus, RTCdata, MouseData, ScreenData, MouseEventData, KeyBoardData } from './types'
+import { EventType } from '../../types/conn'
+import { StartStatus, RTCdata, MouseData, ScreenData, MouseEventData, KeyBoardData } from '../../types/conn'
 import { ServerConnect, CloseSocketIO, ServerVideoConnect } from '../../mainprocess/connection/connect'
 import { ref, onMounted, watch } from 'vue'
 import { usePeerStore } from '../../store/index'

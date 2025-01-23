@@ -21,7 +21,7 @@
 const props = defineProps(['mode', 'status', 'SetStatus', 'setChannel', 'setWin', 'toast'])
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
-import { StartStatus, ipPattern } from './types'
+import { StartStatus, ipPattern } from '../../types/conn'
 import { CloseSocketIO, ClientConnect } from '../../mainprocess/connection/connect'
 import { e } from '../../utils/event'
 import { ref, onMounted } from 'vue'
