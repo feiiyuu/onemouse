@@ -5,8 +5,8 @@
             <span class="title">{{ route.meta.title }}</span>
         </div>
         <div class="opt">
-            <i class="pi pi-minus" @click="hide"></i>
-            <i class="pi pi-times" @click="close"></i>
+            <i class="pi pi-minus minus" @click="hide"></i>
+            <i class="pi pi-times close" @click="close"></i>
         </div>
     </div>
 </template>
@@ -38,20 +38,7 @@ const close = () => {
     display: flex;
     justify-content: space-between;
     color: rgb(105, 98, 139);
-}
-
-.opt {
-    padding: 5px;
-    margin-right: 10px;
-    -webkit-app-region: no-drag
-}
-
-.opt :first-child {
-    margin-right: 20px;
-}
-
-.opt i:hover {
-    color: #10b981;
+    /* background-color: blue; */
 }
 
 .icon {
@@ -60,9 +47,37 @@ const close = () => {
     flex-direction: row;
     align-items: center;
 }
-.title{
+
+.title {
     margin-left: 10px;
     line-height: 1;
     font-weight: 600;
+}
+
+.opt {
+    width: 50px;
+    -webkit-app-region: no-drag;
+    margin: 5px 15px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opt i {
+    transition: all 0.2s;
+}
+
+.minus:hover {
+    color: #10b981;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #f43f5e;
+    transform: rotate(90deg);
+    transform-origin: center center;
+    cursor: pointer;
 }
 </style>
