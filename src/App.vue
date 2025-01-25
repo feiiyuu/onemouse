@@ -27,6 +27,7 @@ watch(() => route.path, (newValue, _) => {
 .panel {
     display: flex;
     flex-direction: row;
+    font-family: Courier, monospace, sans-serif;
 }
 
 .nav {
