@@ -1,11 +1,13 @@
 <template>
     <Header v-show="!hideNav" />
-    <Nav v-show="!hideNav" />
-    <router-view v-slot="{ Component }">
-        <keep-alive>
-            <component :is="Component" style="min-width: 650px;" />
-        </keep-alive>
-    </router-view>
+    <div class="panel">
+        <Nav v-show="!hideNav" class="nav" />
+        <router-view v-slot="{ Component }">
+            <keep-alive>
+                <component :is="Component" class="pages" />
+            </keep-alive>
+        </router-view>
+    </div>
 </template>
 
 <script setup>
@@ -20,3 +22,27 @@ watch(() => route.path, (newValue, _) => {
     hideNav.value = newValue === '/control'
 })
 </script>
+
+<style scoped>
+.panel {
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    top: 4ch;
+}
+.pages{
+    margin-left: 150px;
+    min-width: 650px;
+}
+</style>
+
+<style>
+.p-inputnumber-input {
+    width: 110px;
+}
+</style>
