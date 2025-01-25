@@ -6,7 +6,9 @@
         </div>
         <div class="opt">
             <i class="pi pi-minus minus" @click="hide"></i>
-            <i class="pi pi-times close" @click="close"></i>
+            <i class="close-outlined">
+                <i class="pi pi-times close" @click="close"></i>
+            </i>
         </div>
     </div>
 </template>
@@ -55,9 +57,8 @@ const close = () => {
 }
 
 .opt {
-    width: 50px;
+    width: 80px;
     -webkit-app-region: no-drag;
-    margin: 5px 15px 0 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -68,6 +69,15 @@ const close = () => {
     transition: all 0.2s;
 }
 
+.minus,
+.close {
+    text-align: center;
+    line-height: 35px;
+    display: block;
+    width: 35px;
+    height: 35px;
+}
+
 .minus:hover {
     color: #10b981;
     margin-top: 10px;
@@ -75,9 +85,13 @@ const close = () => {
 }
 
 .close:hover {
-    color: #f43f5e;
+    color: #fff;
     transform: rotate(90deg);
     transform-origin: center center;
     cursor: pointer;
+}
+
+.close-outlined:hover {
+    background-color: #f43f5e;
 }
 </style>
