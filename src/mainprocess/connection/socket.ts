@@ -3,7 +3,8 @@ import { usePeerStore } from '../../store/index'
 
 function CreateIOClient(host_name = "192.168.1.1", port = 9527, password: number) {
     const manage = new Manager(`${host_name}:${port}`, {
-        transports: ["websocket", "polling"]
+        transports: ["websocket", "polling"],
+        reconnectionAttempts: 3,
     })
     const socket = manage.socket(`/`, {
         auth: {
