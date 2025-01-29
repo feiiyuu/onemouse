@@ -29,7 +29,8 @@ import { EventType } from '../../types/conn'
 import { StartStatus, RTCdata, MouseData, ScreenData, MouseEventData, KeyBoardData } from '../../types/conn'
 import { ServerConnect, CloseSocketIO, ServerVideoConnect } from '../../mainprocess/connection/connect'
 import { ref, onMounted, watch } from 'vue'
-import { usePeerStore } from '../../store/index'
+// import { usePeerStore } from '../../store/index'
+import { usePeerStore } from '../../store/app'
 import { storeToRefs } from 'pinia'
 import { useSettingStore } from '../../store/setting'
 
@@ -39,7 +40,6 @@ const manualIP = ref(false)
 const store = usePeerStore()
 const settingStore = useSettingStore()
 const { port, startup, connectPassword } = storeToRefs(settingStore)
-const { ServerVideoPeer } = storeToRefs(store)
 let send: RTCRtpSender = undefined
 let streams: MediaStream = undefined
 
@@ -61,11 +61,11 @@ onMounted(() => {
 async function CatchDesktopVideo(data: ScreenData) {
     const open = data.open
     const sourceId = await window.oneMouse.GetDeskTopId()
-    if (!ServerVideoPeer.value) {
+    if (!store.ServerVideoPeer) {
         ServerVideoConnect(`http://${connectLink.value}`, port.value, connectPassword.value, onmessage)
     }
     if (!open && send) {
-        ServerVideoPeer.value.removeTrack(send)
+        store.ServerVideoPeer.removeTrack(send)
         streams.getTracks().forEach((track) => {
             track.stop()
         })
@@ -76,7 +76,7 @@ async function CatchDesktopVideo(data: ScreenData) {
     const { frameRate, audio } = data
 
     if (frameRate) settingStore.updateFrameRate(frameRate)
-    if (ServerVideoPeer.value && sourceId) {
+    if (store.ServerVideoPeer && sourceId) {
         try {
             const stream = await navigator.mediaDevices.getDisplayMedia({
                 audio: audio,
@@ -85,7 +85,7 @@ async function CatchDesktopVideo(data: ScreenData) {
                 }
             })
             streams = stream
-            stream.getTracks().forEach(track => { send = ServerVideoPeer.value.addTrack(track, stream) })
+            stream.getTracks().forEach(track => { send = store.ServerVideoPeer.addTrack(track, stream) })
             // https://stackoverflow.com/questions/67537807/webrtc-peerconnection-addtrack-after-connection-established
 
         } catch (e) {
@@ -120,8 +120,8 @@ function Stop() {
     props.toast.removeAllGroups()
     window.oneMouse.StopServer()
     CloseSocketIO()
-    ServerVideoPeer.value.close()
-    ServerVideoPeer.value = undefined
+    store.ServerVideoPeer.close()
+    store.ServerVideoPeer = undefined
     props.SetStatus(StartStatus.STOP)
 }
 
@@ -131,7 +131,7 @@ function onServerPortinUse() {
 }
 
 // 确保服务端始终拥有ServerVideoPeer
-watch(ServerVideoPeer, (newpeer, oldpeer) => {
+watch(() => store.ServerVideoPeer, (newpeer, oldpeer) => {
     if (newpeer === undefined) {
         console.log(`watch create new videoPeer`);
         ServerVideoConnect(`http://${connectLink.value}`, port.value, connectPassword.value, onmessage)

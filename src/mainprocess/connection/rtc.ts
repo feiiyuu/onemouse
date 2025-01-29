@@ -10,7 +10,8 @@ const config = {
 
 import { Socket } from 'socket.io-client'
 import { Server, Client, Connection, ServerVideo, ClientVideo } from './types'
-import { usePeerStore } from '../../store/index'
+// import { usePeerStore } from '../../store/index'
+import { usePeerStore } from '../../store/app'
 import { e } from '../../utils/event'
 function createClientRTC(io: Socket): RTCPeerConnection {
 
@@ -74,7 +75,8 @@ function createServerRTC(io: Socket, onmessage: (event: MessageEvent) => void): 
             io.removeAllListeners(Client.OFFER)
             io.removeAllListeners(Client.CANDIDATE)
             const store = usePeerStore()
-            store.updateServerPeer(undefined)
+            // store.updateServerPeer(undefined)
+            store.ServerPeer = undefined
             rtc.close()
         }
     }
@@ -171,7 +173,8 @@ function createServerVideoRTC(io: Socket, onmessage: (event: MessageEvent) => vo
             io.removeAllListeners(ServerVideo.CANDIDATE)
             io.removeAllListeners(Connection.NEW)
             const store = usePeerStore()
-            store.updateServerVideoPeer(undefined)
+            // store.updateServerVideoPeer(undefined)
+            store.ServerVideoPeer = undefined
             io.disconnect()
             io.close()
             rtc.close()

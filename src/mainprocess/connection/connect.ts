@@ -1,7 +1,8 @@
 import { CreateIOClient } from './socket'
 import { createClientRTC, createClientVideoRTC, createServerRTC, createServerVideoRTC } from './rtc'
 import { Connection } from './types'
-import { usePeerStore } from '../../store/index'
+// import { usePeerStore } from '../../store/index'
+import { usePeerStore } from '../../store/app'
 
 // datachannel
 // client is offerer side,server is answerer side
@@ -13,7 +14,8 @@ function ServerConnect(host_name: string, port: number, password: number, onmess
         if (!store.ServerPeer) {
             console.log(`create Server RTC`);
             const rtc = createServerRTC(io, onmessage)
-            store.updateServerPeer(rtc)
+            // store.updateServerPeer(rtc)
+            store.ServerPeer = rtc
         }
     })
 }
@@ -22,7 +24,8 @@ function ClientConnect(host_name: string, port: number, password: number) {
     const store = usePeerStore()
     const io = CreateIOClient(host_name, port, password)
     const rtc = createClientRTC(io)
-    store.updateClientPeer(rtc)
+    // store.updateClientPeer(rtc)
+    store.ClientPeer = rtc
     console.log('Client Create RTC!');
     const dataChannel = rtc.createDataChannel('mouse', {
         ordered: false,
@@ -39,7 +42,8 @@ function ServerVideoConnect(host_name: string, port: number, password: number, o
         const store = usePeerStore()
         if (!store.ServerVideoPeer) {
             const rtc = createServerVideoRTC(io, onmessage)
-            store.updateServerVideoPeer(rtc)
+            // store.updateServerVideoPeer(rtc)
+            store.ServerVideoPeer = rtc
             console.log('video::Server Create video RTC!');
         }
     })
@@ -61,7 +65,8 @@ function CloseSocketIO() {
     if (store.ClientSocket.length > 0) {
         store.updateClientSocket(undefined)
         store.ClientPeer?.close()
-        store.updateClientPeer(undefined)
+        // store.updateClientPeer(undefined)
+        store.ClientPeer = undefined
         console.log('Client socket io closed!');
     }
 }
