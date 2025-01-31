@@ -14,10 +14,17 @@ function getLocalIP() {
 }
 
 function createFullWindow(mainWin: BrowserWindow, host_name: string, port: number, password: number) {
+
+    BrowserWindow.getAllWindows().forEach(win => {
+        if (win.id !== mainWin.id) {
+            win.close()
+        }
+    })
+
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        icon:'images/logo.png',
+        icon: 'images/logo.png',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
         },
@@ -32,12 +39,12 @@ function createFullWindow(mainWin: BrowserWindow, host_name: string, port: numbe
         });
     }
     // win.maximize()
-    if (process.env.NODE_ENV === 'development'){
+    if (process.env.NODE_ENV === 'development') {
         win.webContents.openDevTools();
     }
     win.on('closed', () => {
         mainWin.webContents.send('close-vicewindow')
-    })    
+    })
     return win.id
 }
 
