@@ -31,6 +31,7 @@ onMounted(() => {
     const host_name = route.query.host
     const port = Number(route.query.port)
     const password = Number(route.query.password)
+    document.title = `当前连接： ${host_name}`
     window.oneMouse.onKeyBaordCollect(setCollectKeyboard)
     const { channel, peer } = ClientVideoConnect(`http://${host_name}`, port, password)
     peer.ontrack = ontrack
