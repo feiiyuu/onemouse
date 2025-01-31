@@ -16,7 +16,7 @@ const mapping = {
   StartServer: (port: number, password: number) => ipcRenderer.invoke(event.START_SERVER, port, password),
   StopServer: () => ipcRenderer.send(event.STOP_SERVER),
   GetLocalIP: () => ipcRenderer.invoke(event.GET_LOCALIP),
-  CreateWindow: (host_name: string, port: number, password: number) => ipcRenderer.invoke(event.GET_LOCALIP, host_name, port, password),
+  CreateWindow: (host_name: string, port: number, password: number) => ipcRenderer.invoke(event.CREATE_WINDOW, host_name, port, password),
   CloseWindow: (win: number) => ipcRenderer.send(event.CLOSE_WINDOW, win),
   CollectionMousePosition: (collect: boolean, win: number) => ipcRenderer.send(event.GET_MOUSE, collect, win),
   // move mouse
