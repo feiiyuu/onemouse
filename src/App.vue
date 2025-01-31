@@ -1,7 +1,7 @@
 <template>
-    <Header v-show="!hideNav" />
+    <Header v-if="!hideNav" />
     <div class="panel">
-        <Nav v-show="!hideNav" class="nav" />
+        <Nav v-if="!hideNav" class="nav" />
         <router-view v-slot="{ Component }">
             <keep-alive>
                 <component :is="Component" class="pages" />
@@ -31,13 +31,14 @@ watch(() => route.path, (newValue, _) => {
 }
 
 .nav {
-    position: absolute;
+    position: relative;
     left: 0;
-    bottom: 0px;
-    top: 4ch;
+    bottom: 0;
+    top: 0;
+    height: calc(100vh - 30px);
+    min-height: 400px;
 }
 .pages{
-    margin-left: 150px;
     min-width: 650px;
 }
 </style>
